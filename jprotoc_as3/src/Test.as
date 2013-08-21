@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import lz.jprotoc.Message;
+	import test.proto.cs.MsgBody;
 	/**
 	 * ...
 	 * @author lizhi http://matrix3d.github.io/
@@ -11,7 +12,7 @@ package
 		
 		public function Test() 
 		{
-			new Message;
+			new MsgBody;
 		}
 		
 	}

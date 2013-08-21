@@ -4,6 +4,12 @@ import com.google.protobuf.DescriptorProtos.FieldDescriptorProto;
 import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorRequest;
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse;
+
+import javax.swing.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: lizhi
@@ -12,6 +18,7 @@ import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse;
  * To change this template use File | Settings | File Templates.
  */
 public class JProtoc {
+	private HashSet<String> packs;
 	public void parser(){
 		try {
 			CodeGeneratorRequest request = CodeGeneratorRequest.parseFrom(System.in);
@@ -20,13 +27,15 @@ public class JProtoc {
 				String pack=file.getPackage();
 				String packPath=pack.replaceAll("[.]","/")+"/";
 				for(DescriptorProto messageType:file.getMessageTypeList()){
+					packs=new HashSet<String>();
+					packs.add("lz.jprotoc.Message");
 					String code="package "+pack+"{\r\n";
-					code+="import lz.jprotoc.Message;\r\n";
+					code+="$lzpack";
 					code+="public class "+messageType.getName()+" extends Message{\r\n\r\n";
 					String messageEncode="{";
 					for(FieldDescriptorProto field:messageType.getFieldList()){
-						code+="public var "+field.getName()+":"+getType(field,pack)+";\r\n";
-						messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field,pack):field.getType().getNumber())+"],";
+						code+="public var "+field.getName()+":"+getType(field)+";\r\n";
+						messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field):field.getType().getNumber())+"],";
 					}
 					if(messageEncode.endsWith(",")){
 						messageEncode=messageEncode.substring(0,messageEncode.length()-1);
@@ -34,6 +43,11 @@ public class JProtoc {
 					messageEncode+="}";
 					code+="\r\npublic function "+messageType.getName()+"(){messageEncode="+messageEncode+"}\r\n";
 					code+="}}";
+					String allpackcode="";
+					for(String packcode:packs){
+						allpackcode+="import "+packcode+";\r\n";
+					}
+					code=code.replace("$lzpack",allpackcode);
 					builder.addFile(CodeGeneratorResponse.File.newBuilder()
 							.setName(packPath+messageType.getName()+".as")
 							.setContent(code)
@@ -49,7 +63,7 @@ public class JProtoc {
 		}
 	}
 
-	public String getType(FieldDescriptorProto field,String pack){
+	public String getType(FieldDescriptorProto field){
 		if(field.getLabel()== FieldDescriptorProto.Label.LABEL_REPEATED){
 			return "Array=[]";
 		}
@@ -71,23 +85,28 @@ public class JProtoc {
 			case TYPE_INT64:
 			case TYPE_SFIXED64:
 			case TYPE_SINT64:
-				return "Int64";
+				return "Number";
 			case TYPE_UINT64:
 			case TYPE_FIXED64:
-				return "UInt64";
+				return "Number";
 			case TYPE_STRING:
 				return "String";
 			case TYPE_MESSAGE:
-				return getTypeName(field,pack);
+				return getTypeName(field);
 			case TYPE_BYTES:
-				return "flash.utils.ByteArray";
+				packs.add("flash.utils.ByteArray");
+				return "ByteArray";
 		}
 		return "*";
 	}
-	public String getTypeName(FieldDescriptorProto field,String pack){
+	public String getTypeName(FieldDescriptorProto field){
 		String ret=field.getTypeName().replaceFirst(".","");
+		packs.add(ret);
+		return trimTypeName(ret);
+	}
+	public String trimTypeName(String ret){
 		int li=ret.lastIndexOf(".");
-		if(li>=0&&ret.substring(0,li).equals(pack)){
+		if(li>=0){
 			return ret.substring(li+1,ret.length());
 		}
 		return ret;
