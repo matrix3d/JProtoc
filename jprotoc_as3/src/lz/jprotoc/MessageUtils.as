@@ -35,6 +35,7 @@ package lz.jprotoc
 					}else {
 						msg[name] = value;
 					}
+					body[3] = true;
 				}
 			}
 		}
@@ -80,7 +81,10 @@ package lz.jprotoc
 			return readVarint(bytes);
 		}
 		private static function readtype6(tag:int, bytes:IDataInput, typeObj:Object):Object {
-			return bytes.readDouble();
+			var v:Int64 = new Int64;
+			v.low = bytes.readUnsignedInt();
+			v.high = bytes.readUnsignedInt();
+			return v;
 		}
 		private static function readtype7(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			return bytes.readInt();
@@ -121,7 +125,7 @@ package lz.jprotoc
 			return bytes.readUnsignedInt();
 		}
 		private static function readtype16(tag:int, bytes:IDataInput, typeObj:Object):Object {
-			return bytes.readDouble();
+			return readtype6(tag, bytes, typeObj);
 		}
 		private static function readtype17(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			return readVarint(bytes);
@@ -287,6 +291,61 @@ package lz.jprotoc
 					return 2;
 			}
 			return -1;
+		}
+		
+		public static function msgToString(msg:Message):String {
+			var str:String = "";
+			if (msg.messageEncode != null)
+			for each(var arr:Array in msg.messageEncode) {
+				var name:String = arr[0];
+				var value:Object = msg[name];
+				if (value) {
+					str += name+":"+value+"\r\n";
+				}
+			}
+			return str;
+		}
+		
+		private static var tablen:int = 1;
+		private static var inarr:Boolean = false;
+		public static function msgToHtml(obj:Object):String {
+			var tabstr:String = gettab(tablen);
+			tablen++;
+			var xml:String = "";
+			if (obj is String) {
+				xml ="<string>\""+ obj + "\"</string>";
+			}else if (obj is Boolean||obj is Number||obj is int||obj is uint||obj is Int64) {
+				xml = "<number>"+obj + "</number>";
+			}else if (obj is Array) {
+				inarr = true;
+				xml += "<array>[</array>"
+				
+				for (var i:int = 0; i < obj.length;i++) {
+					var cobj:Object = obj[i];
+					xml += msgToHtml(cobj);
+					if (i < obj.length - 1) xml += ",";
+				}
+				xml += "<array>]</array>";
+				inarr = false;
+			}else if(obj is Message){
+				if (inarr) {
+					xml += "<br/>" + gettab(tablen-2);
+				}
+				xml += "<object>{</object>";
+				for each(var field:Array in obj.messageEncode) {
+					var name:String = field[0];
+					if(obj[name])
+					xml+="<br/>"+tabstr+name+":"+msgToHtml(obj[name]);
+				}
+				xml += "<br/>"+gettab(tablen-2)+"<object>}</object>";
+			}
+			tablen--;
+			return xml;
+		}
+		private static function gettab(len:int):String {
+			var str:String = "";
+			while (len-->0) str += "\u00A0\u00A0"//"&nbsp;&nbsp;&nbsp;&nbsp;";
+			return str;
 		}
 		
 		private static const TYPE_DOUBLE:int=1;

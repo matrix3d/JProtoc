@@ -15,6 +15,12 @@ package lz.jprotoc
 		public function writeTo(bytes:IDataOutput):IDataOutput {
 			return MessageUtils.writeTo(this, bytes);
 		}
+		public function has(name:String):Boolean {
+			return messageEncode && messageEncode[name] && messageEncode[name][3];
+		}
+		public function toString():String {
+			return MessageUtils.msgToString(this);
+		}
 	}
 
 }

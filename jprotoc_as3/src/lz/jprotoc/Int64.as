@@ -19,6 +19,10 @@ package lz.jprotoc
 			return (v.low == low) && (v.high == high);
 		}
 		
+		public function toString():String {
+			return "high:0x" + high.toString(16)+" low:0x" + low.toString(16);
+		}
+		
 	}
 
 }

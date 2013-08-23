@@ -98,15 +98,11 @@ public class JProtoc {
 			case TYPE_BOOL:
 				return "Boolean";
 			case TYPE_INT64:
-				return "Int64";
 			case TYPE_SFIXED64:
-				return "Number";
 			case TYPE_SINT64:
-				return "Int64";
 			case TYPE_UINT64:
-				return "Int64";
 			case TYPE_FIXED64:
-				return "Number";
+				return "Int64";
 			case TYPE_STRING:
 				return "String";
 			case TYPE_MESSAGE:
