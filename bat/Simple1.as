@@ -1,4 +1,5 @@
 package {
+import lz.jprotoc.Int64;
 import lz.jprotoc.Message;
 public class Simple1 extends Message{
 

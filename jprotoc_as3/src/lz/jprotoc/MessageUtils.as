@@ -18,16 +18,18 @@ package lz.jprotoc
 				var tag:uint = readVarint(bytes);
 				var number:int = tag >>> 3;
 				var body:Array = msg.messageEncode[number];
-				var name:String = body[0];
-				var label:int = body[1];
-				var typeObj:Object = body[2];
-				if (typeObj is Class) {
-					var type:int = TYPE_MESSAGE;
-				}else {
-					type = typeObj as int;
+				if(body){
+					var name:String = body[0];
+					var label:int = body[1];
+					var typeObj:Object = body[2];
+					if (typeObj is Class) {
+						var type:int = TYPE_MESSAGE;
+					}else {
+						type = typeObj as int;
+					}
 				}
 				var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
-				if(name){
+				if(body){
 					if (label == 3) {
 						msg[name].push(value);
 					}else {
@@ -45,11 +47,7 @@ package lz.jprotoc
 					value = readVarint(bytes);
 					break;
 				case 2://Length-delimi	string, bytes, embedded messages, packed repeated fields
-					var blen:int = readVarint(bytes);
-					var temp:ByteArray = new ByteArray;
-					temp.endian = Endian.LITTLE_ENDIAN;
-					bytes.readBytes(temp, 0, blen);
-					value = temp;
+					value = readtype9(tag, bytes, typeObj);
 					break;
 				case 5://32-bit	fixed32, sfixed32, float
 					value = bytes.readInt();
@@ -136,7 +134,7 @@ package lz.jprotoc
 			if (msg.messageEncode==null) {
 				throw "not implemented"
 			}
-			bytes ||= new ByteArray;
+			bytes =bytes|| new ByteArray;
 			bytes.endian = Endian.LITTLE_ENDIAN;
 			for (var numberStr:String in msg.messageEncode) {
 				var number:int = int(numberStr);

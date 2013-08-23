@@ -1,7 +1,9 @@
 package lz.jprotoc;
+import com.google.protobuf.DescriptorProtos;
 import com.google.protobuf.DescriptorProtos.DescriptorProto;
 import com.google.protobuf.DescriptorProtos.FieldDescriptorProto;
 import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
+import com.google.protobuf.Descriptors;
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorRequest;
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse;
 
@@ -52,6 +54,18 @@ public class JProtoc {
 					builder.addFile(CodeGeneratorResponse.File.newBuilder()
 							.setName(packPath+messageType.getName()+".as")
 							.setContent(code)
+					);
+				}
+				for(DescriptorProtos.EnumDescriptorProto enumDescriptorProto:file.getEnumTypeList()){
+					String code="package "+pack+"{\r\n";
+					code+="public class "+enumDescriptorProto.getName()+" {\r\n";
+					for(DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProto:enumDescriptorProto.getValueList()){
+						code+="public static const "+enumValueDescriptorProto.getName()+":int = "+enumValueDescriptorProto.getNumber()+";\r\n";
+					}
+					code+="}}";
+					builder.addFile(CodeGeneratorResponse.File.newBuilder()
+						.setName(packPath+enumDescriptorProto.getName()+".as")
+						.setContent(code)
 					);
 				}
 			}
