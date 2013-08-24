@@ -36,14 +36,17 @@ public class JProtoc {
 					code+="$lzpack";
 					code+="public class "+messageType.getName()+" extends Message{\r\n\r\n";
 					String messageEncode="{";
+					String hascode="\r\n";
 					for(FieldDescriptorProto field:messageType.getFieldList()){
 						code+="public var "+field.getName()+":"+getType(field)+";\r\n";
+						if(field.getLabel().getNumber()==1)hascode+="public function get has_"+field.getName()+"():Boolean{return has(\""+field.getName()+"\");}\r\n";
 						messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field):field.getType().getNumber())+"],";
 					}
 					if(messageEncode.endsWith(",")){
 						messageEncode=messageEncode.substring(0,messageEncode.length()-1);
 					}
 					messageEncode+="}";
+					code+=hascode+"\r\n";
 					code+="\r\npublic function "+messageType.getName()+"(){messageEncode="+messageEncode+"}\r\n";
 					code+="}}";
 					String allpackcode="";

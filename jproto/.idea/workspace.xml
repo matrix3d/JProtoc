@@ -9,7 +9,7 @@
     <file path="/GeneratedMessage.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1376919042363" ignored="false" />
     <file path="/a.dummy" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1376965068361" ignored="false" />
     <file path="/MTest222.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377051870511" ignored="false" />
-    <file path="/JProtoc.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377226911895" ignored="false" />
+    <file path="/JProtoc.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377323184632" ignored="false" />
     <file path="/JProtocApp.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377057973240" ignored="false" />
     <file path="/fragment.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377057982970" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -90,10 +90,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CodedOutputStream.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CodedOutputStream.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedOutputStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="5.2076125">
+            <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JProtoc.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lz/jprotoc/JProtoc.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="39" selection-start="2084" selection-end="2084" vertical-scroll-proportion="0.43355703">
               <folding />
             </state>
           </provider>
@@ -153,8 +162,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -202,24 +211,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="jprotoc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jproto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jproto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protobuf" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -377,22 +368,22 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24493062" sideWeight="0.8780761" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25026682" sideWeight="0.8780761" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12192394" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12192394" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -495,9 +486,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/FieldSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="607" column="25" selection-start="21124" selection-end="21124" vertical-scroll-proportion="0.46482122">
-          <folding />
-        </state>
+        <state line="607" column="25" selection-start="21124" selection-end="21124" vertical-scroll-proportion="0.46482122" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/JProtocApp.java">
@@ -509,30 +498,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/RpcUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="47" selection-start="2664" selection-end="2664" vertical-scroll-proportion="-0.7312572">
-          <folding />
-        </state>
+        <state line="60" column="47" selection-start="2664" selection-end="2664" vertical-scroll-proportion="-0.7312572" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="48" selection-start="2797" selection-end="2797" vertical-scroll-proportion="-3.426759">
-          <folding />
-        </state>
+        <state line="63" column="48" selection-start="2797" selection-end="2797" vertical-scroll-proportion="-3.426759" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/GeneratedMessageLite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="46" selection-start="2540" selection-end="2602" vertical-scroll-proportion="0.61361015">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lz/jprotoc/JProtoc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="31" selection-start="3717" selection-end="3717" vertical-scroll-proportion="0.37704918">
-          <folding />
-        </state>
+        <state line="64" column="46" selection-start="2540" selection-end="2602" vertical-scroll-proportion="0.61361015" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/DescriptorProtos.java">
@@ -558,7 +534,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="5.2076125">
+        <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lz/jprotoc/JProtoc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="39" selection-start="2084" selection-end="2084" vertical-scroll-proportion="0.43355703">
           <folding />
         </state>
       </provider>

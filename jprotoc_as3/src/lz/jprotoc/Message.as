@@ -9,14 +9,15 @@ package lz.jprotoc
 	public class Message 
 	{
 		public var messageEncode:Object;
+		public var messageHasFlag:Array = [];
 		public function readFrom(bytes:IDataInput, len:int = -1):void {
 			MessageUtils.readFrom(this, bytes, len);
 		}
 		public function writeTo(bytes:IDataOutput):IDataOutput {
 			return MessageUtils.writeTo(this, bytes);
 		}
-		public function has(name:String):Boolean {
-			return messageEncode && messageEncode[name] && messageEncode[name][3];
+		protected function has(name:String):Boolean {
+			return messageHasFlag[name];
 		}
 		public function toString():String {
 			return MessageUtils.msgToString(this);

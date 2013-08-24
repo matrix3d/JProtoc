@@ -35,7 +35,7 @@ package lz.jprotoc
 					}else {
 						msg[name] = value;
 					}
-					body[3] = true;
+					msg.messageHasFlag[name] = true;
 				}
 			}
 		}
@@ -97,7 +97,8 @@ package lz.jprotoc
 			var temp:ByteArray = new ByteArray;
 			temp.endian = Endian.LITTLE_ENDIAN;
 			bytes.readBytes(temp, 0, blen);
-			return temp + "";
+			temp.position = 0;
+			return temp.readMultiByte(temp.length,"utf-8");
 		}
 		private static function readtype10(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			return null;
