@@ -251,20 +251,24 @@ package lz.jprotoc
 			output.writeByte(value);
 		}
 		public static function writeVarint64(output:IDataOutput,value:Int64):void {
-			 if (value.high == 0) {
+			if (value.high == 0) {
 				writeVarint(output, value.low)
 			} else {
+				var low:uint = value.low;
+				var high:uint = value.high;
 				for (var i:uint = 0; i < 4; ++i) {
-					output.writeByte((value.low & 0x7F) | 0x80)
-					value.low >>>= 7
+					output.writeByte((low & 0x7F) | 0x80)
+					low >>>= 7
 				}
-				if ((value.high & (0xFFFFFFF << 3)) == 0) {
-					output.writeByte((value.high << 4) | value.low)
+				if ((high & (0xFFFFFFF << 3)) == 0) {
+					output.writeByte((high << 4) | low)
 				} else {
-					output.writeByte((((value.high << 4) | value.low) & 0x7F) | 0x80)
-					writeVarint(output, value.high >>> 3)
+					output.writeByte((((high << 4) | low) & 0x7F) | 0x80)
+					writeVarint(output, high >>> 3)
 				}
 			}
+			
+			
 		}
 		public static function type2WrieType(type:int):int {
 			switch (type) {

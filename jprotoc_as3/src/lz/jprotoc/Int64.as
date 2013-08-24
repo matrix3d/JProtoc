@@ -20,6 +20,7 @@ package lz.jprotoc
 		}
 		
 		public function toString():String {
+			return high + " " + low;
 			return "high:0x" + high.toString(16)+" low:0x" + low.toString(16);
 		}
 		
