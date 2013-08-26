@@ -10,6 +10,6 @@ import lz.jprotoc.JProtoc;
 public class JProtocApp {
 	public static void main(String[] args){
 		JProtoc jProtoc=new JProtoc();
-		jProtoc.parser();
+		jProtoc.parser(true,true);
 	}
 }

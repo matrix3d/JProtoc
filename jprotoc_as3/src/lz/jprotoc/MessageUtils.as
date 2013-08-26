@@ -6,7 +6,6 @@ package lz.jprotoc
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	/**
-	 * ...
 	 * @author lizhi http://matrix3d.github.io/
 	 */
 	public class MessageUtils 
@@ -218,45 +217,90 @@ package lz.jprotoc
 			}
 		}
 		
+		// Copyright (c) 2010 , NetEase.com,Inc. All rights reserved.
+		// Copyright (c) 2012 , Yang Bo. All rights reserved.
+		//
+		// Author: Yang Bo (pop.atry@gmail.com)
+		//
+		// Use, modification and distribution are subject to the "New BSD License"
+		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
 		public static function readVarint(input:IDataInput):uint {
-			var r:uint = 0,i:uint=0,v:uint=0;
-			do {
-				v = input.readUnsignedByte();
-				r |= (v&0x7f) << i;
-				i += 7;
-			}while (v & 0x80)
-			return r;
-		}
-		public static function readVarint64(input:IDataInput):Int64 {
-			var r:Int64 = new Int64,i:int=0,v:uint=0,v1:uint=0;
-			do {
-				v = input.readUnsignedByte();
-				v1 = v & 0x7f;
-				if (i<=24) {
-					r.low |= v1 << i;
-				}else if (i>32) {
-					r.high |= v1 << (i - 32);
-				}else {
-					r.low |= v1 << i;
-					r.high |= v1 >>> (32 - i);
+			var result:uint = 0
+			for (var i:uint = 0;; i += 7) {
+				const b:uint = input.readUnsignedByte()
+				if (i < 32) {
+					if (b >= 0x80) {
+						result |= ((b & 0x7f) << i)
+					} else {
+						result |= (b << i)
+						break
+					}
+				} else {
+					while (input.readUnsignedByte() >= 0x80) {}
+					break
 				}
-				i += 7;
-			}while (v & 0x80)
-			return r;
-		}
-		public static function writeVarint(output:IDataOutput,value:int):void {
-			while(value > 0x80){
-				output.writeByte((value & 0x7F) | 0x80)
-				value >>>= 7;
 			}
-			output.writeByte(value);
+			return result
 		}
-		public static function writeVarint64(output:IDataOutput,value:Int64):void {
-			if (value.high == 0) {
-				writeVarint(output, value.low)
+		
+		public static function readVarint64(input:IDataInput):Int64 {
+			const result:Int64 = new Int64
+			var b:uint
+			var i:uint = 0
+			for (;; i += 7) {
+				b = input.readUnsignedByte()
+				if (i == 28) {
+					break
+				} else {
+					if (b >= 0x80) {
+						result.low |= ((b & 0x7f) << i)
+					} else {
+						result.low |= (b << i)
+						return result
+					}
+				}
+			}
+			if (b >= 0x80) {
+				b &= 0x7f
+				result.low |= (b << i)
+				result.high = b >>> 4
 			} else {
-				var low:uint = value.low;
-				var high:uint = value.high;
+				result.low |= (b << i)
+				result.high = b >>> 4
+				return result
+			}
+			for (i = 3;; i += 7) {
+				b = input.readUnsignedByte()
+				if (i < 32) {
+					if (b >= 0x80) {
+						result.high |= ((b & 0x7f) << i)
+					} else {
+						result.high |= (b << i)
+						break
+					}
+				}
+			}
+			return result
+		}
+		
+		public static function writeVarint(output:IDataOutput,value:int):void {
+			for (;;) {
+				if (value < 0x80) {
+					output.writeByte(value)
+					return;
+				} else {
+					output.writeByte((value & 0x7F) | 0x80)
+					value >>>= 7
+				}
+			}
+		}
+		
+		public static function writeVarint64(output:IDataOutput, value:Int64):void {
+			var high:uint = value.high;
+			var low:uint = value.low;
+			if (high == 0) {
+				writeVarint(output, low)
+			} else {
 				for (var i:uint = 0; i < 4; ++i) {
 					output.writeByte((low & 0x7F) | 0x80)
 					low >>>= 7
@@ -268,8 +312,6 @@ package lz.jprotoc
 					writeVarint(output, high >>> 3)
 				}
 			}
-			
-			
 		}
 		public static function type2WrieType(type:int):int {
 			switch (type) {

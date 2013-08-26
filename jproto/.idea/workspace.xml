@@ -9,8 +9,8 @@
     <file path="/GeneratedMessage.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1376919042363" ignored="false" />
     <file path="/a.dummy" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1376965068361" ignored="false" />
     <file path="/MTest222.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377051870511" ignored="false" />
-    <file path="/JProtoc.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377323184632" ignored="false" />
-    <file path="/JProtocApp.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377057973240" ignored="false" />
+    <file path="/JProtoc.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377515329375" ignored="false" />
+    <file path="/JProtocApp.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377347361518" ignored="false" />
     <file path="/fragment.java" changelist="61a92877-4237-4c3b-8c58-a394d8392a89" time="1377057982970" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,37 +72,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TextFormat.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/TextFormat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="283" column="9" selection-start="10846" selection-end="10846" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CodedInputStream.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedInputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="19" selection-start="2348" selection-end="2348" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CodedOutputStream.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedOutputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="JProtoc.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lz/jprotoc/JProtoc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="39" selection-start="2084" selection-end="2084" vertical-scroll-proportion="0.43355703">
+            <state line="28" column="36" selection-start="1108" selection-end="1108" vertical-scroll-proportion="0.43355703">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DescriptorProtos.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/DescriptorProtos.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="15" selection-start="63" selection-end="103" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JProtocApp.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JProtocApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="32" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,7 +154,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -216,6 +206,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -230,9 +221,9 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -365,7 +356,7 @@
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -374,7 +365,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25026682" sideWeight="0.8780761" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25827107" sideWeight="0.8780761" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -489,13 +480,6 @@
         <state line="607" column="25" selection-start="21124" selection-end="21124" vertical-scroll-proportion="0.46482122" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JProtocApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/RpcUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="47" selection-start="2664" selection-end="2664" vertical-scroll-proportion="-0.7312572" />
@@ -511,37 +495,38 @@
         <state line="64" column="46" selection-start="2540" selection-end="2602" vertical-scroll-proportion="0.61361015" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/DescriptorProtos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9585" column="87" selection-start="349787" selection-end="349811" vertical-scroll-proportion="0.022248244">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/TextFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="283" column="9" selection-start="10846" selection-end="10846" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="283" column="9" selection-start="10846" selection-end="10846" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="19" selection-start="2348" selection-end="2348" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="49" column="19" selection-start="2348" selection-end="2348" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/CodedOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="0.0">
+        <state line="1105" column="5" selection-start="39097" selection-end="39097" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/google/protobuf/DescriptorProtos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="15" selection-start="63" selection-end="103" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JProtocApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="32" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lz/jprotoc/JProtoc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="39" selection-start="2084" selection-end="2084" vertical-scroll-proportion="0.43355703">
+        <state line="28" column="36" selection-start="1108" selection-end="1108" vertical-scroll-proportion="0.43355703">
           <folding />
         </state>
       </provider>
