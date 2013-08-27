@@ -10,12 +10,15 @@ package lz.jprotoc
 	 */
 	public class MessageUtils 
 	{
+		public static var CHAR_SET:String = "utf-8";
+		
 		public static function readFrom(msg:Message, bytes:IDataInput, len:int = -1):void {
 			var affterLen:int = 0;
 			if (len > 0) affterLen = bytes.bytesAvailable-len;
 			while (bytes.bytesAvailable>affterLen) {
 				var tag:uint = readVarint(bytes);
 				var number:int = tag >>> 3;
+				msg.messageHasFlag[number] = true;
 				var body:Array = msg.messageEncode[number];
 				if(body){
 					var name:String = body[0];
@@ -34,7 +37,6 @@ package lz.jprotoc
 					}else {
 						msg[name] = value;
 					}
-					msg.messageHasFlag[name] = true;
 				}
 			}
 		}
@@ -97,7 +99,7 @@ package lz.jprotoc
 			temp.endian = Endian.LITTLE_ENDIAN;
 			bytes.readBytes(temp, 0, blen);
 			temp.position = 0;
-			return temp.readMultiByte(temp.length,"utf-8");
+			return temp.readMultiByte(temp.length,CHAR_SET);
 		}
 		private static function readtype10(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			return null;
@@ -210,7 +212,7 @@ package lz.jprotoc
 					}else {
 						temp = new ByteArray;
 						temp.endian = Endian.LITTLE_ENDIAN;
-						temp.writeMultiByte(value as String, "utf-8");
+						temp.writeMultiByte(value as String, CHAR_SET);
 					}
 					writeVarint(bytes, temp.length);
 					bytes.writeBytes(temp, 0, temp.length);
@@ -243,6 +245,13 @@ package lz.jprotoc
 			return result
 		}
 		
+		// Copyright (c) 2010 , NetEase.com,Inc. All rights reserved.
+		// Copyright (c) 2012 , Yang Bo. All rights reserved.
+		//
+		// Author: Yang Bo (pop.atry@gmail.com)
+		//
+		// Use, modification and distribution are subject to the "New BSD License"
+		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
 		public static function readVarint64(input:IDataInput):Int64 {
 			const result:Int64 = new Int64
 			var b:uint
@@ -283,6 +292,13 @@ package lz.jprotoc
 			return result
 		}
 		
+		// Copyright (c) 2010 , NetEase.com,Inc. All rights reserved.
+		// Copyright (c) 2012 , Yang Bo. All rights reserved.
+		//
+		// Author: Yang Bo (pop.atry@gmail.com)
+		//
+		// Use, modification and distribution are subject to the "New BSD License"
+		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
 		public static function writeVarint(output:IDataOutput,value:int):void {
 			for (;;) {
 				if (value < 0x80) {
@@ -295,6 +311,13 @@ package lz.jprotoc
 			}
 		}
 		
+		// Copyright (c) 2010 , NetEase.com,Inc. All rights reserved.
+		// Copyright (c) 2012 , Yang Bo. All rights reserved.
+		//
+		// Author: Yang Bo (pop.atry@gmail.com)
+		//
+		// Use, modification and distribution are subject to the "New BSD License"
+		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
 		public static function writeVarint64(output:IDataOutput, value:Int64):void {
 			var high:uint = value.high;
 			var low:uint = value.low;

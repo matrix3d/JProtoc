@@ -26,7 +26,7 @@ public class JProtoc {
 				String pack=file.getPackage();
 				String packPath=pack.replaceAll("[.]","/")+"/";
 
-				String codefrom="// source: "+file.getPackage()+"/"+file.getName()+"\r\n";
+				String codefrom="// source: "+"/"+file.getName()+"\r\n";
 				String jscode="";
 				for(DescriptorProto messageType:file.getMessageTypeList()){
 					packs=new HashSet<String>();
@@ -40,7 +40,7 @@ public class JProtoc {
 					for(FieldDescriptorProto field:messageType.getFieldList()){
 						if(as3){
 							as3code +="public var "+field.getName()+":"+getType(field)+";\r\n";
-							if(field.getLabel().getNumber()==1)hascode+="public function get has_"+field.getName()+"():Boolean{return has(\""+field.getName()+"\");}\r\n";
+							if(field.getLabel().getNumber()==1)hascode+="public function get has_"+field.getName()+"():Boolean{return has("+field.getNumber()+");}\r\n";
 							messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field):field.getType().getNumber())+"],";
 						}
 					}
@@ -87,8 +87,11 @@ public class JProtoc {
 
 	public String getType(FieldDescriptorProto field){
 		if(field.getLabel()== FieldDescriptorProto.Label.LABEL_REPEATED){
-			return "Array=[]";
+			return "Array=[]/*"+field2type(field)+"*/";
 		}
+		return  field2type(field);
+	}
+	public String field2type(FieldDescriptorProto field){
 		FieldDescriptorProto.Type type=field.getType();
 		switch (type) {
 			case TYPE_DOUBLE:
