@@ -42,7 +42,7 @@ public class JProtoc {
 							String ftype=getType(field);
 							if(field.getLabel().getNumber()==1){
 								hascode+="public function get has_"+field.getName()+"():Boolean{return has("+field.getNumber()+");}\r\n";
-								as3code +="public var _"+field.getName()+":"+ftype+";\r\n";
+								as3code +="private var _"+field.getName()+":"+ftype+";\r\n";
 								as3code+="public function get "+field.getName()+"():"+ftype+" {return _"+field.getName()+";}\r\n";
 								as3code+="public function set "+field.getName()+"(value:"+ftype+"):void { _"+field.getName()+" = value; setHas("+field.getNumber()+"); }\r\n";
 							}else{
