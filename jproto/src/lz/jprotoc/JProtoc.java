@@ -39,8 +39,15 @@ public class JProtoc {
 					String hascode="\r\n";
 					for(FieldDescriptorProto field:messageType.getFieldList()){
 						if(as3){
-							as3code +="public var "+field.getName()+":"+getType(field)+";\r\n";
-							if(field.getLabel().getNumber()==1)hascode+="public function get has_"+field.getName()+"():Boolean{return has("+field.getNumber()+");}\r\n";
+							String ftype=getType(field);
+							if(field.getLabel().getNumber()==1){
+								hascode+="public function get has_"+field.getName()+"():Boolean{return has("+field.getNumber()+");}\r\n";
+								as3code +="public var _"+field.getName()+":"+ftype+";\r\n";
+								as3code+="public function get "+field.getName()+"():"+ftype+" {return _"+field.getName()+";}\r\n";
+								as3code+="public function set "+field.getName()+"(value:"+ftype+"):void { _"+field.getName()+" = value; setHas("+field.getNumber()+"); }\r\n";
+							}else{
+								as3code +="public var "+field.getName()+":"+ftype+";\r\n";
+							}
 							messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field):field.getType().getNumber())+"],";
 						}
 					}

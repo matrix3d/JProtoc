@@ -16,8 +16,11 @@ package lz.jprotoc
 		public function writeTo(bytes:IDataOutput):IDataOutput {
 			return MessageUtils.writeTo(this, bytes);
 		}
-		protected function has(number:int):Boolean {
+		public function has(number:int):Boolean {
 			return messageHasFlag[number];
+		}
+		public function setHas(number:int, value:Boolean = true):void {
+			messageHasFlag[number] = value;
 		}
 		public function toString():String {
 			return MessageUtils.msgToString(this);

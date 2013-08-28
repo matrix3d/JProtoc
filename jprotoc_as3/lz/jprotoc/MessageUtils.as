@@ -30,7 +30,7 @@ package lz.jprotoc
 						type = typeObj as int;
 					}
 				}
-				var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
+				if(bytes.bytesAvailable>affterLen)var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
 				if(body){
 					if (label == 3) {
 						msg[name].push(value);
@@ -145,12 +145,15 @@ package lz.jprotoc
 			for (var numberStr:String in msg.messageEncode) {
 				var number:int = int(numberStr);
 				var body:Array = msg.messageEncode[number];
+				var label:int = body[1];
+				if (label==1&&!msg.has(number)) {
+					continue;
+				}
 				var name:String = body[0];
 				var value:Object = msg[name];
 				if (value==null) {
 					continue;
 				}
-				var label:int = body[1];
 				var typeObj:Object = body[2];
 				if (typeObj is Class) {
 					var type:int = TYPE_MESSAGE;
