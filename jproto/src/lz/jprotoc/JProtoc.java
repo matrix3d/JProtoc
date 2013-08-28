@@ -44,7 +44,7 @@ public class JProtoc {
 								hascode+="public function get has_"+field.getName()+"():Boolean{return has("+field.getNumber()+");}\r\n";
 								as3code +="private var _"+field.getName()+":"+ftype+";\r\n";
 								as3code+="public function get "+field.getName()+"():"+ftype+" {return _"+field.getName()+";}\r\n";
-								as3code+="public function set "+field.getName()+"(value:"+ftype+"):void { _"+field.getName()+" = value; setHas("+field.getNumber()+"); }\r\n";
+								as3code+="public function set "+field.getName()+"(value:"+ftype+"):void { _"+field.getName()+" = value; setHas("+field.getNumber()+"); }\r\n\r\n";
 							}else{
 								as3code +="public var "+field.getName()+":"+ftype+";\r\n";
 							}
@@ -57,7 +57,7 @@ public class JProtoc {
 						}
 						messageEncode+="}";
 						as3code +=hascode;
-						as3code +="\r\npublic function "+messageType.getName()+"(){messageEncode="+messageEncode+"}\r\n";
+						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; Message.messageEncode[pname] =Message.messageEncode[pname]||"+messageEncode+"}\r\n";
 						as3code +="}}";
 						String allpackcode="";
 						for(String packcode:packs){

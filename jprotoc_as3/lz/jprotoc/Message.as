@@ -8,7 +8,7 @@ package lz.jprotoc
 	 */
 	public class Message 
 	{
-		public var messageEncode:Object;
+		public static var messageEncode:Object={};
 		public var messageHasFlag:Array = [];
 		public function readFrom(bytes:IDataInput, len:int = -1):void {
 			MessageUtils.readFrom(this, bytes, len);

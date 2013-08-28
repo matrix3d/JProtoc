@@ -3,6 +3,7 @@ package lz.jprotoc
 	
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
+	import flash.utils.getQualifiedClassName;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	/**
@@ -18,8 +19,7 @@ package lz.jprotoc
 			while (bytes.bytesAvailable>affterLen) {
 				var tag:uint = readVarint(bytes);
 				var number:int = tag >>> 3;
-				msg.messageHasFlag[number] = true;
-				var body:Array = msg.messageEncode[number];
+				var body:Array = getMessageEncode(msg)[number];
 				if(body){
 					var name:String = body[0];
 					var label:int = body[1];
@@ -137,14 +137,15 @@ package lz.jprotoc
 		}
 		
 		public static function writeTo(msg:Message,bytes:IDataOutput):IDataOutput {
-			if (msg.messageEncode==null) {
-				throw "not implemented"
+			var messageEncode:Object = getMessageEncode(msg);
+			if (messageEncode==null) {
+				return null;
 			}
 			bytes =bytes|| new ByteArray;
 			bytes.endian = Endian.LITTLE_ENDIAN;
-			for (var numberStr:String in msg.messageEncode) {
+			for (var numberStr:String in messageEncode) {
 				var number:int = int(numberStr);
-				var body:Array = msg.messageEncode[number];
+				var body:Array = messageEncode[number];
 				var label:int = body[1];
 				if (label==1&&!msg.has(number)) {
 					continue;
@@ -366,10 +367,15 @@ package lz.jprotoc
 			return -1;
 		}
 		
+		public static function getMessageEncode(msg:Message):Object {
+			return Message.messageEncode[getQualifiedClassName(msg)];
+		}
+		
 		public static function msgToString(msg:Message):String {
 			var str:String = "";
-			if (msg.messageEncode != null)
-			for each(var arr:Array in msg.messageEncode) {
+			var messageEncode:Object = getQualifiedClassName(msg);
+			if (messageEncode != null)
+			for each(var arr:Array in messageEncode) {
 				var name:String = arr[0];
 				var value:Object = msg[name];
 				if (value) {
@@ -405,7 +411,7 @@ package lz.jprotoc
 					xml += "<br/>" + gettab(tablen-2);
 				}
 				xml += "<object>{</object>";
-				for each(var field:Array in obj.messageEncode) {
+				for each(var field:Array in getMessageEncode(obj as Message)) {
 					var name:String = field[0];
 					if(obj[name])
 					xml+="<br/>"+tabstr+name+":"+msgToHtml(obj[name]);
