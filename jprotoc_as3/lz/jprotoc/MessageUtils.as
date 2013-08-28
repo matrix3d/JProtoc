@@ -302,7 +302,7 @@ package lz.jprotoc
 		//
 		// Use, modification and distribution are subject to the "New BSD License"
 		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
-		public static function writeVarint(output:IDataOutput,value:int):void {
+		public static function writeVarint(output:IDataOutput,value:uint):void {
 			for (;;) {
 				if (value < 0x80) {
 					output.writeByte(value)
