@@ -57,7 +57,7 @@ public class JProtoc {
 						}
 						messageEncode+="}";
 						as3code +=hascode;
-						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; Message.messageEncode[pname] =Message.messageEncode[pname]||"+messageEncode+"}\r\n";
+						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; messageEncode[pname] =messageEncode[pname]||"+messageEncode+"}\r\n";
 						as3code +="}}";
 						String allpackcode="";
 						for(String packcode:packs){

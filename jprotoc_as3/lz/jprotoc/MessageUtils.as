@@ -18,6 +18,7 @@ package lz.jprotoc
 			if (len > 0) affterLen = bytes.bytesAvailable-len;
 			while (bytes.bytesAvailable>affterLen) {
 				var tag:uint = readVarint(bytes);
+				if (tag == 0) continue;
 				var number:int = tag >>> 3;
 				var body:Array = getMessageEncode(msg)[number];
 				if(body){
@@ -30,7 +31,7 @@ package lz.jprotoc
 						type = typeObj as int;
 					}
 				}
-				if(bytes.bytesAvailable>affterLen)var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
+				var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
 				if(body){
 					if (label == 3) {
 						msg[name].push(value);
@@ -95,11 +96,14 @@ package lz.jprotoc
 		}
 		private static function readtype9(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			var blen:int = readVarint(bytes);
-			var temp:ByteArray = new ByteArray;
-			temp.endian = Endian.LITTLE_ENDIAN;
-			bytes.readBytes(temp, 0, blen);
-			temp.position = 0;
-			return temp.readMultiByte(temp.length,CHAR_SET);
+			if(blen>0){
+				var temp:ByteArray = new ByteArray;
+				temp.endian = Endian.LITTLE_ENDIAN;
+				bytes.readBytes(temp, 0, blen);
+				temp.position = 0;
+				return temp.readMultiByte(temp.length,CHAR_SET);
+			}
+			return "";
 		}
 		private static function readtype10(tag:int, bytes:IDataInput, typeObj:Object):Object {
 			return null;
@@ -114,7 +118,9 @@ package lz.jprotoc
 			var blen:int = readVarint(bytes);
 			var temp:ByteArray = new ByteArray;
 			temp.endian = Endian.LITTLE_ENDIAN;
-			bytes.readBytes(temp, 0, blen);
+			if (blen!=0) {
+				bytes.readBytes(temp, 0, blen);
+			}
 			return temp;
 		}
 		private static function readtype13(tag:int, bytes:IDataInput, typeObj:Object):Object {
@@ -373,13 +379,13 @@ package lz.jprotoc
 		
 		public static function msgToString(msg:Message):String {
 			var str:String = "";
-			var messageEncode:Object = getQualifiedClassName(msg);
+			var messageEncode:Object = getMessageEncode(msg);
 			if (messageEncode != null)
 			for each(var arr:Array in messageEncode) {
 				var name:String = arr[0];
 				var value:Object = msg[name];
 				if (value) {
-					str += name+":"+value+"\r\n";
+					str += name+":"+value+"\n";
 				}
 			}
 			return str;
