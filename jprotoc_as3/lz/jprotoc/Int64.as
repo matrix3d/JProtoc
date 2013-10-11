@@ -16,7 +16,12 @@ package lz.jprotoc
 		}
 		
 		public function equal(v:Int64):Boolean {
+			if (v == null) return false;
 			return (v.low == low) && (v.high == high);
+		}
+		
+		public function isZero():Boolean {
+			return low == 0 && high == 0;
 		}
 		
 		public function toString():String {

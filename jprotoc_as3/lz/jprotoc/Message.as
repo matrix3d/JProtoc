@@ -1,5 +1,6 @@
 package lz.jprotoc 
 {
+	import flash.utils.getQualifiedClassName;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	/**
@@ -23,7 +24,35 @@ package lz.jprotoc
 			messageHasFlag[number] = value;
 		}
 		public function toString():String {
-			return MessageUtils.msgToString(this);
+			return JSON.stringify(this, null, 4);
+		}
+		public function toJSON(k:String):Object {
+			var messageEncode:Object = getMessageEncode();
+			var obj:Object = { };
+			if (messageEncode != null)
+			for(var key:String in messageEncode) {
+				var arr:Array = messageEncode[key];
+				var name:String = arr[0];
+				var value:Object = this[name];
+				if (value) {
+					if (value is Array) {
+						if (value.length && value[0] is Message) {
+							obj[name] = value;
+						}else {
+							obj[name] ="["+ value + "]";
+						}
+					}else if(value is Message){
+						obj[name] = value;
+					}else {
+						obj[name] = value+"";
+					}
+				}
+			}
+			return obj;
+		}
+		
+		public function getMessageEncode():Object {
+			return Message.messageEncode[getQualifiedClassName(this)];
 		}
 	}
 

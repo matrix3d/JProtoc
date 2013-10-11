@@ -3,7 +3,6 @@ package lz.jprotoc
 	
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
-	import flash.utils.getQualifiedClassName;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
 	/**
@@ -20,7 +19,7 @@ package lz.jprotoc
 				var tag:uint = readVarint(bytes);
 				if (tag == 0) continue;
 				var number:int = tag >>> 3;
-				var body:Array = getMessageEncode(msg)[number];
+				var body:Array = msg.getMessageEncode()[number];
 				if(body){
 					var name:String = body[0];
 					var label:int = body[1];
@@ -143,7 +142,7 @@ package lz.jprotoc
 		}
 		
 		public static function writeTo(msg:Message,bytes:IDataOutput):IDataOutput {
-			var messageEncode:Object = getMessageEncode(msg);
+			var messageEncode:Object = msg.getMessageEncode();
 			if (messageEncode==null) {
 				return null;
 			}
@@ -371,66 +370,6 @@ package lz.jprotoc
 					return 2;
 			}
 			return -1;
-		}
-		
-		public static function getMessageEncode(msg:Message):Object {
-			return Message.messageEncode[getQualifiedClassName(msg)];
-		}
-		
-		public static function msgToString(msg:Message):String {
-			var str:String = "";
-			var messageEncode:Object = getMessageEncode(msg);
-			if (messageEncode != null)
-			for each(var arr:Array in messageEncode) {
-				var name:String = arr[0];
-				var value:Object = msg[name];
-				if (value) {
-					str += name+":"+value+"\n";
-				}
-			}
-			return str;
-		}
-		
-		private static var tablen:int = 1;
-		private static var inarr:Boolean = false;
-		public static function msgToHtml(obj:Object):String {
-			var tabstr:String = gettab(tablen);
-			tablen++;
-			var xml:String = "";
-			if (obj is String) {
-				xml ="<string>\""+ obj + "\"</string>";
-			}else if (obj is Boolean||obj is Number||obj is int||obj is uint||obj is Int64) {
-				xml = "<number>"+obj + "</number>";
-			}else if (obj is Array) {
-				inarr = true;
-				xml += "<array>[</array>"
-				
-				for (var i:int = 0; i < obj.length;i++) {
-					var cobj:Object = obj[i];
-					xml += msgToHtml(cobj);
-					if (i < obj.length - 1) xml += ",";
-				}
-				xml += "<array>]</array>";
-				inarr = false;
-			}else if(obj is Message){
-				if (inarr) {
-					xml += "<br/>" + gettab(tablen-2);
-				}
-				xml += "<object>{</object>";
-				for each(var field:Array in getMessageEncode(obj as Message)) {
-					var name:String = field[0];
-					if(obj[name])
-					xml+="<br/>"+tabstr+name+":"+msgToHtml(obj[name]);
-				}
-				xml += "<br/>"+gettab(tablen-2)+"<object>}</object>";
-			}
-			tablen--;
-			return xml;
-		}
-		private static function gettab(len:int):String {
-			var str:String = "";
-			while (len-->0) str += "\u00A0\u00A0"//"&nbsp;&nbsp;&nbsp;&nbsp;";
-			return str;
 		}
 		
 		private static const TYPE_DOUBLE:int=1;
