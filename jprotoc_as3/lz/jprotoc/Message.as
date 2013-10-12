@@ -43,8 +43,12 @@ package lz.jprotoc
 						}
 					}else if(value is Message){
 						obj[name] = value;
-					}else {
+					}else if(value is String){
 						obj[name] = value+"";
+					}else if (value is Int64) {
+						obj[name] = value+"";
+					}else {
+						obj[name] = value;
 					}
 				}
 			}
