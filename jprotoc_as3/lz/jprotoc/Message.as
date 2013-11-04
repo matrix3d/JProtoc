@@ -1,5 +1,6 @@
 package lz.jprotoc 
 {
+	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.IDataInput;
 	import flash.utils.IDataOutput;
@@ -47,7 +48,9 @@ package lz.jprotoc
 						obj[name] = value+"";
 					}else if (value is Int64) {
 						obj[name] = value+"";
-					}else {
+					}else if (value is ByteArray) {
+						obj[name] = value + "";
+					}else{
 						obj[name] = value;
 					}
 				}
