@@ -19,18 +19,36 @@ package lz.jprotoc
 				var tag:uint = readVarint(bytes);
 				if (tag == 0) continue;
 				var number:int = tag >>> 3;
-				var body:Array = msg.getMessageEncode()[number];
+				var body:Object = msg.mMessageEncode[number];
 				if(body){
 					var name:String = body[0];
 					var label:int = body[1];
-					var typeObj:Object = body[2];
-					if (typeObj is Class) {
-						var type:int = TYPE_MESSAGE;
-					}else {
-						type = typeObj as int;
-					}
+					var type:int = body[2];
+					var typeObj:Object = body[3];
 				}
-				var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
+				//var value:Object = (MessageUtils["readtype" + type] || MessageUtils["readtype0"])(tag, bytes, typeObj);
+				var value:Object;
+				switch(type) {
+					case 1:value = readtype1(tag, bytes, typeObj); break;
+					case 2:value = readtype2(tag, bytes, typeObj); break;
+					case 3:value = readtype3(tag, bytes, typeObj); break;
+					case 4:value = readtype4(tag, bytes, typeObj); break;
+					case 5:value = readtype5(tag, bytes, typeObj); break;
+					case 6:value = readtype6(tag, bytes, typeObj); break;
+					case 7:value = readtype7(tag, bytes, typeObj); break;
+					case 8:value = readtype8(tag, bytes, typeObj); break;
+					case 9:value = readtype9(tag, bytes, typeObj); break;
+					case 10:value = readtype10(tag, bytes, typeObj); break;
+					case 11:value = readtype11(tag, bytes, typeObj); break;
+					case 12:value = readtype12(tag, bytes, typeObj); break;
+					case 13:value = readtype13(tag, bytes, typeObj); break;
+					case 14:value = readtype14(tag, bytes, typeObj); break;
+					case 15:value = readtype15(tag, bytes, typeObj); break;
+					case 16:value = readtype16(tag, bytes, typeObj); break;
+					case 17:value = readtype17(tag, bytes, typeObj); break;
+					case 18:value = readtype18(tag, bytes, typeObj); break;
+					default:value = readtype0(tag, bytes, typeObj);
+				}
 				if(body){
 					if (label == 3) {
 						msg[name].push(value);
@@ -142,7 +160,7 @@ package lz.jprotoc
 		}
 		
 		public static function writeTo(msg:Message,bytes:IDataOutput):IDataOutput {
-			var messageEncode:Object = msg.getMessageEncode();
+			var messageEncode:Object = msg.mMessageEncode;
 			if (messageEncode==null) {
 				return null;
 			}
@@ -150,7 +168,7 @@ package lz.jprotoc
 			bytes.endian = Endian.LITTLE_ENDIAN;
 			for (var numberStr:String in messageEncode) {
 				var number:int = int(numberStr);
-				var body:Array = messageEncode[number];
+				var body:Object = messageEncode[number];
 				var label:int = body[1];
 				if (label==1&&!msg.has(number)) {
 					continue;
@@ -160,12 +178,7 @@ package lz.jprotoc
 				if (value==null) {
 					continue;
 				}
-				var typeObj:Object = body[2];
-				if (typeObj is Class) {
-					var type:int = TYPE_MESSAGE;
-				}else {
-					type = typeObj as int;
-				}
+				var type:int = body[2];
 				
 				var wrieType:int = type2WrieType(type);
 				var tag:int = (number << 3) | wrieType;

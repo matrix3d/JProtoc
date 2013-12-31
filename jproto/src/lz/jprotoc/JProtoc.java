@@ -48,7 +48,11 @@ public class JProtoc {
 							}else{
 								as3code +="public var "+field.getName()+":"+ftype+";\r\n";
 							}
-							messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+field.getLabel().getNumber()+","+(field.hasTypeName()?getTypeName(field):field.getType().getNumber())+"],";
+							messageEncode+=field.getNumber()+":[\""+field.getName()+"\","+
+									field.getLabel().getNumber()+","+
+									(field.getType().getNumber())+
+									(field.hasTypeName()?(","+getTypeName(field)):"")+
+									"],";
 						}
 					}
 					if(as3){
@@ -57,7 +61,7 @@ public class JProtoc {
 						}
 						messageEncode+="}";
 						as3code +=hascode;
-						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; messageEncode[pname] =messageEncode[pname]||"+messageEncode+"}\r\n";
+						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; messageEncode[pname] =messageEncode[pname]||"+messageEncode+";init();}\r\n";
 						as3code +="}}";
 						String allpackcode="";
 						for(String packcode:packs){

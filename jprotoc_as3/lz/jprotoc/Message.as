@@ -12,6 +12,11 @@ package lz.jprotoc
 	{
 		public static var messageEncode:Object={};
 		public var messageHasFlag:Array = [];
+		public var mMessageEncode:Object;
+		public function init():void {
+			mMessageEncode = messageEncode[getQualifiedClassName(this)];
+		}
+		
 		public function readFrom(bytes:IDataInput, len:int = -1):void {
 			MessageUtils.readFrom(this, bytes, len);
 		}
@@ -28,7 +33,7 @@ package lz.jprotoc
 			return JSON.stringify(this, null, 4);
 		}
 		public function toJSON(k:String):Object {
-			var messageEncode:Object = getMessageEncode();
+			var messageEncode:Object = mMessageEncode;
 			var obj:Object = { };
 			if (messageEncode != null)
 			for(var key:String in messageEncode) {
@@ -56,10 +61,6 @@ package lz.jprotoc
 				}
 			}
 			return obj;
-		}
-		
-		public function getMessageEncode():Object {
-			return Message.messageEncode[getQualifiedClassName(this)];
 		}
 	}
 
