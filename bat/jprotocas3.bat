@@ -1,3 +1,4 @@
 @echo off
-cd D:\project\JProtoc\jproto\out\production\jproto
-java JProtocApp
+::cd ..\jproto\out\production\jproto
+::java JProtocApp
+java -jar jprotoc.jar

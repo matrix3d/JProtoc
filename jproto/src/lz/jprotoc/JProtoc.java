@@ -30,8 +30,8 @@ public class JProtoc {
 				String jscode="";
 				for(DescriptorProto messageType:file.getMessageTypeList()){
 					packs=new HashSet<String>();
-					packs.add("lz.jprotoc.Message");
-					packs.add("lz.jprotoc.Int64");
+					packs.add("jprotoc.Message");
+					packs.add("jprotoc.Int64");
 					String as3code =header+codefrom+"package "+pack+"{\r\n";
 					as3code +="$lzpack";
 					as3code +="public class "+messageType.getName()+" extends Message{\r\n\r\n";
@@ -61,7 +61,7 @@ public class JProtoc {
 						}
 						messageEncode+="}";
 						as3code +=hascode;
-						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+pack+"::"+messageType.getName()+"\"; messageEncode[pname] =messageEncode[pname]||"+messageEncode+";init();}\r\n";
+						as3code +="\r\npublic function "+messageType.getName()+"(){var pname:String = \""+(pack==""?"":(pack+"::"))+messageType.getName()+"\";mMessageEncode = messageEncode[pname] =messageEncode[pname]||"+messageEncode+";init();}\r\n";
 						as3code +="}}";
 						String allpackcode="";
 						for(String packcode:packs){
