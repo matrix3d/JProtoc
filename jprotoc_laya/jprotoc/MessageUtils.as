@@ -105,7 +105,7 @@ package jprotoc
 			return bytes.getInt32();
 		}
 		private static function readtype8(tag:int, bytes:Byte, typeObj:Object):Object {
-			return readVarint(bytes)>0;;
+			return readVarint(bytes)>0;
 		}
 		private static function readtype9(tag:int, bytes:Byte, typeObj:Object):Object {
 			var blen:int = readVarint(bytes);
@@ -329,6 +329,7 @@ package jprotoc
 		// Use, modification and distribution are subject to the "New BSD License"
 		// as listed at <url: http://www.opensource.org/licenses/bsd-license.php >.
 		public static function writeVarint(output:Byte,value:uint):void {
+			value>>>=0;
 			for (;;) {
 				if (value < 0x80) {
 					output.writeByte(value)
